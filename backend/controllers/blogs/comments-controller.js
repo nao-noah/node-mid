@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const {
-    query: { blogId },
+    params: { blogId },
     body: { content },
   } = req;
 

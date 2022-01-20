@@ -32,7 +32,7 @@ const App = () => {
   };
 
   const deleteBlog = async (id) => {
-    await axios.patch(`http://localhost:8080/blogs/${id}`);
+    await axios.delete(`http://localhost:8080/blogs/${id}`);
     getBlogs();
   };
 

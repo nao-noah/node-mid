@@ -15,7 +15,6 @@ router.get("/", async (req, res) => {
       console.error(err);
       res.status(422);
     }
-    console.log("blogs", result);
     blogs = result;
 
     const sql2 = `
@@ -27,7 +26,6 @@ router.get("/", async (req, res) => {
         console.error(err);
         res.status(422);
       }
-      console.log("comments", result);
       comments = result;
 
       const _blogs = blogs.map((blog) => {
@@ -70,7 +68,7 @@ router.post("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const {
-    query: { id },
+    params: { id },
     body: { content },
   } = req;
 
@@ -90,8 +88,10 @@ router.patch("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
+  console.log("delete");
+
   const {
-    query: { id },
+    params: { id },
   } = req;
 
   const sql = `

@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const {
-    query: { blogId },
+    params: { blogId },
   } = req;
 
   const sql = `
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   const {
-    query: { blogId },
+    params: { blogId },
   } = req;
 
   const sql = `
