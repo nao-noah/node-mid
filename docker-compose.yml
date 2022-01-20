@@ -8,6 +8,8 @@ services:
       - "5306:3306"
     volumes:
       - db-data:/var/lib/mysql
+      - ./backend/db-init.sql:/backend/db-init.sql
+    command: --init-file /backend/db-init.sql
 
 volumes:
   db-data: {}
