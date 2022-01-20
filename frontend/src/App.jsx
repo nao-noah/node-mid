@@ -55,7 +55,7 @@ const App = () => {
         </div>
       </div>
       <div>
-        {blogs.map((blog) => (
+        {blogs?.map((blog) => (
           <div>
             <div>Blog Content: {blog.content}</div>
             <div
@@ -83,7 +83,7 @@ const App = () => {
             </div>
             <div>
               Comments:
-              {blog.comments.map((comment) => (
+              {blog.comments?.map((comment) => (
                 <div>{comment.content}</div>
               ))}
             </div>
