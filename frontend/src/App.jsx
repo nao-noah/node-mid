@@ -68,7 +68,7 @@ const App = () => {
       </div>
       <div>
         {blogs?.map((blog) => (
-          <div>
+          <div className="appbox">
             <h1>Blog: {blog.content}</h1>
             <button onClick={() => deleteBlog(blog.id)}>
               Delete this blog
@@ -88,6 +88,7 @@ const App = () => {
               </button>
             </div>
             <div
+              className="like"
               onClick={() => {
                 const newBlogs = [];
                 blogs.forEach((_blog) => {
