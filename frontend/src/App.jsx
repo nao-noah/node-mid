@@ -7,39 +7,50 @@ const App = () => {
     { id: 0, content: "Hello", like: true, comments: [{ content: "Hey" }] },
   ]);
   const [newBlog, setNewBlog] = useState("");
-  const [newComment, setComment] = useState("");
+  const [editBlog, setEditBlog] = useState("");
+  const [newComment, setNewComment] = useState("");
 
-  useEffect(async () => {
-    const res = await axios.get(`http://localhost:8080/blogs`);
-    // setBlogs(res.data.blogs);
+  useEffect(() => {
+    getBlogs();
   }, []);
 
-  const postBlog = (comment) => {
-    axios.post(`http://localhost:8080/blogs`, { content: comment });
+  const getBlogs = async () => {
+    const res = await axios.get(`http://localhost:8080/blogs`);
+    setBlogs(res.data.blogs);
   };
 
-  const patchBlog = (id) => {
-    axios.patch(`http://localhost:8080/blogs/${id}`, {
-      content: newBlog,
+  const postBlog = async (comment) => {
+    await axios.post(`http://localhost:8080/blogs`, { content: comment });
+    getBlogs();
+  };
+
+  const patchBlog = async (id) => {
+    await axios.patch(`http://localhost:8080/blogs/${id}`, {
+      content: editBlog,
     });
+    getBlogs();
   };
 
-  const deleteBlog = (id) => {
-    axios.patch(`http://localhost:8080/blogs/${id}`);
+  const deleteBlog = async (id) => {
+    await axios.patch(`http://localhost:8080/blogs/${id}`);
+    getBlogs();
   };
 
-  const postComment = (blogId, comment) => {
-    axios.post(`http://localhost:8080/blogs/${blogId}/comments`, {
+  const postComment = async (blogId, comment) => {
+    await axios.post(`http://localhost:8080/blogs/${blogId}/comments`, {
       content: comment,
     });
+    getBlogs();
   };
 
-  const postLike = (blogId) => {
-    axios.post(`http://localhost:8080/blogs/${blogId}/likes`);
+  const postLike = async (blogId) => {
+    await axios.post(`http://localhost:8080/blogs/${blogId}/likes`);
+    getBlogs();
   };
 
-  const deleteLike = (blogId) => {
-    axios.delete(`http://localhost:8080/blogs/${blogId}/likes`);
+  const deleteLike = async (blogId) => {
+    await axios.delete(`http://localhost:8080/blogs/${blogId}/likes`);
+    getBlogs();
   };
 
   return (
@@ -52,12 +63,30 @@ const App = () => {
             value={newBlog}
             onChange={(e) => setNewBlog(e.target.value)}
           />
+          <button onClick={postBlog(newBlog)}>SAVE</button>
         </div>
       </div>
       <div>
         {blogs?.map((blog) => (
           <div>
-            <div>Blog Content: {blog.content}</div>
+            <h1>Blog Content: {blog.content}</h1>
+            <button onClick={() => deleteBlog(blog.id)}>
+              Delete this blog
+            </button>
+            <div>
+              <input
+                type="text"
+                value={editBlog}
+                onChange={(e) => setEditBlog(e.target.value)}
+              />
+              <button
+                onClick={() => {
+                  patchBlog(blog.id);
+                }}
+              >
+                UPDATE
+              </button>
+            </div>
             <div
               onClick={() =>
                 setBlogs((prev) => {
@@ -82,6 +111,20 @@ const App = () => {
               }
             >
               {blog.like ? "★" : "☆"}
+            </div>
+            <div>
+              <input
+                type="text"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              />
+              <button
+                onClick={() => {
+                  postComment(blog.id);
+                }}
+              >
+                CREATE
+              </button>
             </div>
             <div>
               Comments:
