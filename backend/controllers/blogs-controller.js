@@ -62,7 +62,7 @@ router.post("/", async (req, res) => {
       console.error(err);
       res.status(422);
     }
-    res.status(201);
+    res.status(201).send();
   });
 });
 
@@ -83,13 +83,11 @@ router.patch("/:id", async (req, res) => {
       console.error(err);
       res.status(422);
     }
-    res.status(200);
+    res.status(200).send();
   });
 });
 
 router.delete("/:id", async (req, res) => {
-  console.log("delete");
-
   const {
     params: { id },
   } = req;
@@ -104,7 +102,7 @@ router.delete("/:id", async (req, res) => {
       console.error(err);
       res.status(422);
     }
-    res.status(204);
+    res.status(204).send();
   });
 });
 

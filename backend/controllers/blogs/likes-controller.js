@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
       console.error(err);
       res.status(422);
     }
-    res.status(201);
+    res.status(201).send();
   });
 });
 
@@ -35,7 +35,7 @@ router.delete("/", async (req, res) => {
       console.error(err);
       res.status(422);
     }
-    res.status(204);
+    res.status(204).send();
   });
 });
 

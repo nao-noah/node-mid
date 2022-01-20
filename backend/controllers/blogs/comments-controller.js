@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
       console.error(err);
       res.status(422);
     }
-    res.status(201);
+    res.status(201).send();
   });
 });
 
