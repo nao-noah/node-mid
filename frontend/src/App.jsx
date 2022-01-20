@@ -69,7 +69,7 @@ const App = () => {
       <div>
         {blogs?.map((blog) => (
           <div>
-            <h1>Blog Content: {blog.content}</h1>
+            <h1>Blog: {blog.content}</h1>
             <button onClick={() => deleteBlog(blog.id)}>
               Delete this blog
             </button>
