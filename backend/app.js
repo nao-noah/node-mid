@@ -4,7 +4,7 @@ const commentsController = require("./controllers/blogs/comments-controller");
 const likesController = require("./controllers/blogs/likes-controller");
 
 const app = express();
-const port = 3000;
+const port = 8080;
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

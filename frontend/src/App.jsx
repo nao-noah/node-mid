@@ -47,7 +47,29 @@ const App = () => {
       {blogs.map((blog) => (
         <div>
           <div>Blog Content: {blog.content}</div>
-          <div>{blog.like ? "★" : "☆"}</div>
+          <div
+            onClick={() =>
+              setBlogs((prev) => {
+                const newBlogs = [...prev];
+                prev.forEach((_blog) => {
+                  if (_blog.id === blog.id) {
+                    const c_blog = { ..._blog };
+                    c_blog.like = !c_blog.like;
+                    newBlogs.push(c_blog);
+                    if (c_blog.like) {
+                      postLike(c_blog.id);
+                    } else {
+                      deleteLike(c_blog.id);
+                    }
+                  } else {
+                    newBlogs.push(_blog);
+                  }
+                });
+              })
+            }
+          >
+            {blog.like ? "★" : "☆"}
+          </div>
           <div>
             Comments:
             {blog.comments.map((comment) => (
