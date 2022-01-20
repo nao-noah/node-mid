@@ -61,7 +61,7 @@ const App = () => {
             <div
               onClick={() =>
                 setBlogs((prev) => {
-                  const newBlogs = [...prev];
+                  const newBlogs = [];
                   prev.forEach((_blog) => {
                     if (_blog.id === blog.id) {
                       const c_blog = { ..._blog };
@@ -76,6 +76,8 @@ const App = () => {
                       newBlogs.push(_blog);
                     }
                   });
+
+                  return newBlogs;
                 })
               }
             >
