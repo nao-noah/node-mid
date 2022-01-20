@@ -3,6 +3,9 @@ const db = require("../db");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  let blogs = [];
+  let comments = [];
+
   const sql = `
     SELECT * FROM blogs
   `;
@@ -12,7 +15,38 @@ router.get("/", async (req, res) => {
       console.error(err);
       res.status(422);
     }
-    res.status(200).json({ blogs: result });
+    console.log("blogs", result);
+    blogs = result;
+
+    const sql2 = `
+    SELECT * FROM comments
+  `;
+
+    db.query(sql2, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(422);
+      }
+      console.log("comments", result);
+      comments = result;
+
+      const _blogs = blogs.map((blog) => {
+        const _blog = { ...blog };
+        _blog.comments = [];
+
+        comments.map((comment) => {
+          if (comment.blog_id === blog.id) {
+            _blog.comments.push(comment);
+          }
+        });
+
+        return _blog;
+      });
+
+      const resp = { blogs: _blogs };
+      console.log("resp", resp);
+      res.status(200).json(resp);
+    });
   });
 });
 
