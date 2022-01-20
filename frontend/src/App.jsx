@@ -4,7 +4,7 @@ import "./App.css";
 
 const App = () => {
   const [blogs, setBlogs] = useState([
-    { id: 0, content: "Hello", like: true, comments: [{ content: "Hey" }] },
+    { id: 0, content: "Hello", likes: true, comments: [{ content: "Hey" }] },
   ]);
   const [newBlog, setNewBlog] = useState("");
   const [editBlog, setEditBlog] = useState("");
@@ -88,29 +88,23 @@ const App = () => {
               </button>
             </div>
             <div
-              onClick={() =>
-                setBlogs((prev) => {
-                  const newBlogs = [];
-                  prev.forEach((_blog) => {
-                    if (_blog.id === blog.id) {
-                      const c_blog = { ..._blog };
-                      c_blog.like = !c_blog.like;
-                      newBlogs.push(c_blog);
-                      if (c_blog.like) {
-                        postLike(c_blog.id);
-                      } else {
-                        deleteLike(c_blog.id);
-                      }
+              onClick={() => {
+                const newBlogs = [];
+                blogs.forEach((_blog) => {
+                  if (_blog.id === blog.id) {
+                    const c_blog = { ..._blog };
+                    c_blog.likes = !c_blog.likes;
+                    newBlogs.push(c_blog);
+                    if (c_blog.likes) {
+                      postLike(c_blog.id);
                     } else {
-                      newBlogs.push(_blog);
+                      deleteLike(c_blog.id);
                     }
-                  });
-
-                  return newBlogs;
-                })
-              }
+                  }
+                });
+              }}
             >
-              {blog.like ? "★" : "☆"}
+              {blog.likes ? "★" : "☆"}
             </div>
             <div>
               <input

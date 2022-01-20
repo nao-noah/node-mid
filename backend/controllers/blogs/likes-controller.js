@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../../db");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.post("/", async (req, res) => {
   const {
@@ -8,10 +8,12 @@ router.post("/", async (req, res) => {
   } = req;
 
   const sql = `
-    INSERT INTO likes (blog_id) VALUES (?)
+    UPDATE blogs
+    SET likes = 1
+    WHERE id = ?
   `;
 
-  db.query(sql, [blogId], (err, result) => {
+  db.query(sql, [parseInt(blogId)], (err, result) => {
     if (err) {
       console.error(err);
       res.status(422);
@@ -26,8 +28,9 @@ router.delete("/", async (req, res) => {
   } = req;
 
   const sql = `
-    DELETE FROM blogs
-    WHERE blogId = ?
+  UPDATE blogs
+  SET likes = 0
+  WHERE id = ?
   `;
 
   db.query(sql, [blogId], (err, result) => {
