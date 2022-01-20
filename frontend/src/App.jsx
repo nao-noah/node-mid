@@ -63,7 +63,7 @@ const App = () => {
             value={newBlog}
             onChange={(e) => setNewBlog(e.target.value)}
           />
-          <button onClick={postBlog(newBlog)}>SAVE</button>
+          <button onClick={() => postBlog(newBlog)}>SAVE</button>
         </div>
       </div>
       <div>

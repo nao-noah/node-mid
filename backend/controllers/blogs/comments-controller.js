@@ -13,6 +13,10 @@ router.post("/", async (req, res) => {
   `;
 
   db.query(sql, [blogId, content], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(422);
+    }
     res.status(201);
   });
 });

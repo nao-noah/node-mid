@@ -12,6 +12,10 @@ router.post("/", async (req, res) => {
   `;
 
   db.query(sql, [blogId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(422);
+    }
     res.status(201);
   });
 });
@@ -27,6 +31,10 @@ router.delete("/", async (req, res) => {
   `;
 
   db.query(sql, [blogId], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(422);
+    }
     res.status(204);
   });
 });

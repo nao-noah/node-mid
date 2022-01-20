@@ -8,6 +8,10 @@ router.get("/", async (req, res) => {
   `;
 
   db.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(422);
+    }
     res.status(200).json({ blogs: result });
   });
 });
@@ -22,6 +26,10 @@ router.post("/", async (req, res) => {
   `;
 
   db.query(sql, [content], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(422);
+    }
     res.status(201);
   });
 });
@@ -39,6 +47,10 @@ router.patch("/:id", async (req, res) => {
   `;
 
   db.query(sql, [content, id], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(422);
+    }
     res.status(200);
   });
 });
@@ -54,6 +66,10 @@ router.delete("/:id", async (req, res) => {
   `;
 
   db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(422);
+    }
     res.status(204);
   });
 });
