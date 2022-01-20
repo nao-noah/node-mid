@@ -11,7 +11,7 @@ const App = () => {
 
   useEffect(async () => {
     const res = await axios.get(`http://localhost:8080/blogs`);
-    setBlogs(res.data.blogs);
+    // setBlogs(res.data.blogs);
   }, []);
 
   const postBlog = (comment) => {
@@ -44,40 +44,52 @@ const App = () => {
 
   return (
     <div className="App">
-      {blogs.map((blog) => (
+      <div>
+        <div>+ Create a new blog</div>
         <div>
-          <div>Blog Content: {blog.content}</div>
-          <div
-            onClick={() =>
-              setBlogs((prev) => {
-                const newBlogs = [...prev];
-                prev.forEach((_blog) => {
-                  if (_blog.id === blog.id) {
-                    const c_blog = { ..._blog };
-                    c_blog.like = !c_blog.like;
-                    newBlogs.push(c_blog);
-                    if (c_blog.like) {
-                      postLike(c_blog.id);
-                    } else {
-                      deleteLike(c_blog.id);
-                    }
-                  } else {
-                    newBlogs.push(_blog);
-                  }
-                });
-              })
-            }
-          >
-            {blog.like ? "★" : "☆"}
-          </div>
-          <div>
-            Comments:
-            {blog.comments.map((comment) => (
-              <div>{comment.content}</div>
-            ))}
-          </div>
+          <input
+            type="text"
+            value={newBlog}
+            onChange={(e) => setNewBlog(e.target.value)}
+          />
         </div>
-      ))}
+      </div>
+      <div>
+        {blogs.map((blog) => (
+          <div>
+            <div>Blog Content: {blog.content}</div>
+            <div
+              onClick={() =>
+                setBlogs((prev) => {
+                  const newBlogs = [...prev];
+                  prev.forEach((_blog) => {
+                    if (_blog.id === blog.id) {
+                      const c_blog = { ..._blog };
+                      c_blog.like = !c_blog.like;
+                      newBlogs.push(c_blog);
+                      if (c_blog.like) {
+                        postLike(c_blog.id);
+                      } else {
+                        deleteLike(c_blog.id);
+                      }
+                    } else {
+                      newBlogs.push(_blog);
+                    }
+                  });
+                })
+              }
+            >
+              {blog.like ? "★" : "☆"}
+            </div>
+            <div>
+              Comments:
+              {blog.comments.map((comment) => (
+                <div>{comment.content}</div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
