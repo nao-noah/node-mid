@@ -1,7 +1,7 @@
-import express from "express";
-import blogsController from "./controllers/blogs-controller";
-import commentsController from "./controllers/blogs/comments-controller";
-import likesController from "./controllers/blogs/likes-controller";
+const express = require("express");
+const blogsController = require("./controllers/blogs-controller");
+const commentsController = require("./controllers/blogs/comments-controller");
+const likesController = require("./controllers/blogs/likes-controller");
 
 const app = express();
 const port = 3000;
