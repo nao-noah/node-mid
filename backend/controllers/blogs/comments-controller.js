@@ -9,7 +9,8 @@ router.post("/", async (req, res) => {
   } = req;
 
   const sql = `
-    INSERT INTO blogs (blogId, content) VALUES (?, ?)
+    INSERT INTO comments (blog_id, content) 
+    VALUES (?, ?)
   `;
 
   db.query(sql, [blogId, content], (err, result) => {

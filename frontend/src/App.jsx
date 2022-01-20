@@ -36,9 +36,9 @@ const App = () => {
     getBlogs();
   };
 
-  const postComment = async (blogId, comment) => {
+  const postComment = async (blogId) => {
     await axios.post(`http://localhost:8080/blogs/${blogId}/comments`, {
-      content: comment,
+      content: newComment,
     });
     getBlogs();
   };
